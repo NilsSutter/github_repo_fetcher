@@ -1,6 +1,5 @@
 require_relative "../spec_helper"
 require "./src/app"
-require "pry"
 
 ENV['RACK_ENV'] = 'test'
 describe "Fetch github repositories" do
