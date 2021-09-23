@@ -1,5 +1,6 @@
 require_relative "../spec_helper"
 require "./src/app"
+require "pry"
 
 ENV['RACK_ENV'] = 'test'
 describe "Fetch github repositories" do
@@ -32,8 +33,14 @@ describe "Fetch github repositories" do
       expect(last_response).to be_ok
     end
 
-    it "renders a form" do
-      expect(last_response.body).to include("https://github.com/nodejs/node")
+    it "returns 10 elements" do
+      number_of_non_empty_p_tags = last_response.body
+                                                .split("<p>")
+                                                .map(&:strip)
+                                                .reject(&:empty?)
+                                                .count
+
+      expect(number_of_non_empty_p_tags).to eq(10)
     end
   end
 end
